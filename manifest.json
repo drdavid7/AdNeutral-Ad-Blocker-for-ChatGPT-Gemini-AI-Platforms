@@ -1,0 +1,162 @@
+{
+  "manifest_version": 3,
+  "name": "AdNeutral",
+  "version": "2.0.23",
+  "minimum_chrome_version": "120",
+  "description": "Maximum ad blocking. Zero tracking. Auto-reject cookie banners. Built for the modern web.",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "alarms",
+    "tabs",
+    "webNavigation",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://sponsor.ajay.app/*"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "rules_core",
+        "enabled": true,
+        "path": "rules/rules_core.json"
+      },
+      {
+        "id": "rules_trackers",
+        "enabled": true,
+        "path": "rules/rules_trackers.json"
+      },
+      {
+        "id": "rules_annoyances",
+        "enabled": true,
+        "path": "rules/rules_annoyances.json"
+      },
+      {
+        "id": "rules_adlinks",
+        "enabled": true,
+        "path": "rules/rules_adlinks.json"
+      },
+      {
+        "id": "rules_pro_extended",
+        "enabled": false,
+        "path": "rules/rules_pro_extended.json"
+      },
+      {
+        "id": "rules_https",
+        "enabled": true,
+        "path": "rules/rules_https.json"
+      },
+      {
+        "id": "rules_streaming",
+        "enabled": true,
+        "path": "rules/rules_streaming.json"
+      }
+    ]
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/fingerprint.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/cosmetic.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/adlink-domains.generated.js",
+        "content/popup-blocker.js",
+        "content/streaming-shield.js",
+        "content/anti-adblock-bait.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/core.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/cookie-banner.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content/social-tracker.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://m.youtube.com/*"
+      ],
+      "js": [
+        "content/sponsorblock.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-active-16.png",
+      "32": "icons/icon-active-32.png",
+      "48": "icons/icon-active-48.png",
+      "128": "icons/icon-active-128.png"
+    }
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "icons": {
+    "16": "icons/icon-active-16.png",
+    "32": "icons/icon-active-32.png",
+    "48": "icons/icon-active-48.png",
+    "128": "icons/icon-active-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

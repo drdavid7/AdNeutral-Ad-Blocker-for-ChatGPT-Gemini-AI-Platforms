@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AdNeutral</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="brand">
+        <img src="../assets/logo.svg" width="24" height="24" alt="" class="brand-logo" />
+        <div class="brand-text">
+          <span class="wordmark">AdNeutral</span>
+          <span id="plan-badge" class="plan-badge plan-free">Free</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle theme">☀</button>
+        <label class="switch switch-lg">
+          <input type="checkbox" id="master-toggle" checked />
+          <span class="switch-track"></span>
+        </label>
+      </div>
+    </header>
+
+    <div id="disabled-banner" class="disabled-banner hidden" role="status">
+      ⚠ Protection disabled on this tab
+    </div>
+
+    <section class="card site-card">
+      <div class="site-left">
+        <span class="shield" id="shield-icon" aria-hidden="true">🛡</span>
+      </div>
+      <div class="site-center">
+        <div id="site-domain" class="site-domain">—</div>
+        <div id="site-status" class="site-status site-status-ok">✓ Protected</div>
+      </div>
+      <div class="site-right">
+        <button type="button" id="pause-site" class="btn-ghost btn-pill">Pause</button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-col">
+        <div id="stat-blocked" class="stat-num">0</div>
+        <div class="stat-label">Blocked today</div>
+      </div>
+      <div class="stat-col">
+        <div id="stat-trackers" class="stat-num">0</div>
+        <div class="stat-label">Trackers</div>
+      </div>
+      <div class="stat-col">
+        <div id="stat-https" class="stat-num">0</div>
+        <div class="stat-label">HTTPS ↑</div>
+      </div>
+    </section>
+
+    <section class="modules">
+      <h2 class="modules-heading">Protection modules</h2>
+      <ul class="module-list" id="module-list"></ul>
+    </section>
+
+    <section class="dev-card">
+      <div class="dev-title">⚡ DEV: Toggle Pro Mode</div>
+      <p class="dev-sub">Remove before production release</p>
+      <button type="button" id="dev-pro-btn" class="btn-primary btn-block">Enable Pro (Testing)</button>
+    </section>
+
+    <footer class="footer">
+      <a href="#" id="open-options">⚙ Settings</a>
+      <span class="dot">·</span>
+      <a href="#" id="open-site">View Site</a>
+      <div class="meta">AdNeutral v2.0.0 · adneutral.com</div>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
